@@ -1,0 +1,13 @@
+{
+    "period": "2026-08-17 to 2026-08-24",
+    "initial_usd": 15.0,
+    "final_usd": 12.75,
+    "net_profit_usd": -2.25,
+    "roi_percent": -14.98,
+    "profit_factor": 0.14,
+    "win_rate_percent": 35.0,
+    "total_trades": 20,
+    "winning_trades": 7,
+    "losing_trades": 13,
+    "max_drawdown_percent": 17.94
+}

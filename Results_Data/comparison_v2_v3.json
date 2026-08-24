@@ -1,0 +1,74 @@
+[
+    {
+        "version": "EA v2.0 (Trend Cascade)",
+        "risk_pct": 2.5,
+        "initial_usd": 10000.0,
+        "final_usd": 39637.81,
+        "net_profit_usd": 29637.81,
+        "roi_pct": 296.38,
+        "pf": 1.25,
+        "win_rate_pct": 43.15,
+        "total_trades": 482,
+        "max_dd_pct": 27.86
+    },
+    {
+        "version": "EA v3.0 (Multi-TF Partial Close)",
+        "risk_pct": 2.5,
+        "initial_usd": 10000.0,
+        "final_usd": 35682.53,
+        "net_profit_usd": 25682.53,
+        "roi_pct": 256.83,
+        "pf": 0.68,
+        "win_rate_pct": 38.32,
+        "total_trades": 274,
+        "max_dd_pct": 32.6
+    },
+    {
+        "version": "EA v2.0 (Trend Cascade)",
+        "risk_pct": 5.0,
+        "initial_usd": 10000.0,
+        "final_usd": 84752.9,
+        "net_profit_usd": 74752.9,
+        "roi_pct": 747.53,
+        "pf": 1.23,
+        "win_rate_pct": 43.15,
+        "total_trades": 482,
+        "max_dd_pct": 52.16
+    },
+    {
+        "version": "EA v3.0 (Multi-TF Partial Close)",
+        "risk_pct": 5.0,
+        "initial_usd": 10000.0,
+        "final_usd": 80346.84,
+        "net_profit_usd": 70346.84,
+        "roi_pct": 703.47,
+        "pf": 0.62,
+        "win_rate_pct": 38.32,
+        "total_trades": 274,
+        "max_dd_pct": 55.18
+    },
+    {
+        "version": "EA v2.0 (Trend Cascade)",
+        "risk_pct": 2.5,
+        "initial_usd": 15.0,
+        "final_usd": 60.07,
+        "net_profit_usd": 45.07,
+        "roi_pct": 300.47,
+        "pf": 1.25,
+        "win_rate_pct": 43.15,
+        "total_trades": 482,
+        "max_dd_pct": 27.92
+    },
+    {
+        "version": "EA v3.0 (Multi-TF Partial Close)",
+        "risk_pct": 2.5,
+        "initial_usd": 15.0,
+        "final_usd": 53.33,
+        "net_profit_usd": 38.33,
+        "roi_pct": 255.52,
+        "pf": 0.67,
+        "win_rate_pct": 38.32,
+        "total_trades": 274,
+        "max_dd_pct": 32.58
+    }
+]

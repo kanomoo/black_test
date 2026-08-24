@@ -1,0 +1,38 @@
+{
+    "period": "2024-08-26 to 2026-08-24 (2 Years)",
+    "initial_deposit": 15.0,
+    "final_balance": -4.57,
+    "net_profit": -19.57,
+    "roi_percent": -130.5,
+    "profit_factor": 0.0,
+    "win_rate_percent": 0.0,
+    "total_trades": 2,
+    "winning_trades": 0,
+    "losing_trades": 2,
+    "max_drawdown_amount": 19.57,
+    "max_drawdown_percent": 130.5,
+    "trades_sample": [
+        {
+            "entry_time": "2024-08-26 12:00:00-04:00",
+            "exit_time": "2024-08-26 21:00:00-04:00",
+            "type": "BUY",
+            "entry_price": 2555.9,
+            "exit_price": 2547.51,
+            "lot_size": 0.01,
+            "pnl": -8.39,
+            "balance": 6.61,
+            "reason": "SL"
+        },
+        {
+            "entry_time": "2024-08-27 14:00:00-04:00",
+            "exit_time": "2024-08-27 22:00:00-04:00",
+            "type": "BUY",
+            "entry_price": 2560.0,
+            "exit_price": 2548.81,
+            "lot_size": 0.01,
+            "pnl": -11.19,
+            "balance": -4.57,
+            "reason": "SL"
+        }
+    ]
+}

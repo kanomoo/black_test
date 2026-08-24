@@ -1,0 +1,352 @@
+================================================================================
+        XAUUSD MULTI-TF SCALPING EA v2.0 - CONFIGURATION GUIDE
+================================================================================
+
+📋 QUICK START CONFIGURATION
+================================================================================
+
+PROFILE 1: CONSERVATIVE (Safe Trading)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+RiskPercent           = 8.0         (Risk ต่ำ = น้อยขาดทุน)
+SL_Buffer             = 200         (SL ไกล = โอกาสเอาตัวออก)
+AllowNewOrders        = true        (เปิดออเดอร์ได้)
+UseTradeHours         = true        (ใช้ Time Filter)
+
+ยังไง: เหมาะสำหรับผู้เริ่มต้น หรือ Account เล็ก
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PROFILE 2: BALANCED (Recommended)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+RiskPercent           = 15.0        (Risk ปานกลาง = สมดุล)
+SL_Buffer             = 150         (SL ปกติ)
+AllowNewOrders        = true        (เปิดออเดอร์ได้)
+UseTradeHours         = true        (ใช้ Time Filter)
+
+ยังไง: RECOMMENDED ใช้ Profile นี้เป็นหลัก
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PROFILE 3: AGGRESSIVE (High Risk/Reward)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+RiskPercent           = 20.0        (Risk สูง = Lot ใหญ่)
+SL_Buffer             = 100         (SL แคบ = ดีล็อกไวขึ้น)
+AllowNewOrders        = true        (เปิดออเดอร์ได้)
+UseTradeHours         = true        (ใช้ Time Filter)
+
+ยังไง: ใช้เมื่อมั่นใจแล้ว หรือ Account ใหญ่
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+================================================================================
+⏰ TRADING HOURS EXPLANATION (GMT+7 - Thailand Time)
+================================================================================
+
+Session 1: 11:00 - 16:00 (Mid-day Asia/Europe)
+├─ 11:00 AM: Gold market เข้มแข็ง
+├─ 13:00: London เปิด
+└─ 16:00: หยุดเทรด
+
+Session 2: 16:00 - 02:00 (Europe/US Session - Next Day)
+├─ 16:00 (4 PM): Europe ยังเปิด
+├─ 21:00 (9 PM): US เปิด
+├─ 00:00 (12 AM): US Mid-session
+└─ 02:00 (2 AM): ปิด
+
+ทำไมช่วงนี้ดี?
+✅ Volume สูง = Slippage น้อย
+✅ Volatility ดี = ได้โอกาส RR สูง
+✅ Liquidity ดี = เปิด-ปิดง่าย
+
+================================================================================
+💰 POSITION SIZE CALCULATION (Lot Size Formula)
+================================================================================
+
+Formula:
+────────────────────────────────────────────────────────────
+Account Balance = $10,000
+Risk % = 15%
+Risk Amount = $10,000 × 15% = $1,500
+
+SL Distance = 150 pips
+Entry Price = 2450
+SL Price = 2400
+Risk Pips = 2450 - 2400 = 50 pips ❌ (ไม่ใช่ 150)
+
+ถ้า SL_Buffer = 150:
+SL Price = 2415 (Previous Low) - 150 pips = 2265
+Risk Pips = 2450 - 2265 = 185 pips ✅
+
+Lot Size = Risk Amount / (Risk Pips × Pip Value)
+         = $1,500 / (185 × 10)
+         = $1,500 / $1,850
+         = 0.81 lots
+
+ปรับเป็น 0.80 lots (ปัดลงตามมาตรฐาน)
+
+════════════════════════════════════════════════════════════
+
+⚠️ ข้อสังเกต:
+- หากคำนวณ Lot Size < 0.01 EA จะไม่เปิดออเดอร์
+- วิธีแก้: เพิ่ม Account หรือลด SL_Buffer
+
+================================================================================
+📊 TAKE PROFIT LEVELS BREAKDOWN
+================================================================================
+
+เข้า BUY @ 2450
+SL @ 2400 (Risk = 50 pips)
+
+TP Level 1 (RR 1:2):
+├─ Target Price = 2450 + (50 × 2) = 2550 ✅
+├─ Profit = $1,000
+├─ Action: ไม่ปิด → ขยับ SL → 2500 (Breakeven + 50%)
+└─ Goal: ล็อกกำไร 50% ของความเสี่ยง
+
+TP Level 2 (RR 1:3):
+├─ Target Price = 2450 + (50 × 3) = 2600 ✅
+├─ Profit = $1,500
+├─ Action: ไม่ปิด → ขยับ SL → 2525
+└─ Goal: ล็อกกำไรเพิ่มเติม
+
+TP Level 3 (RR 1:5):
+├─ Target Price = 2450 + (50 × 5) = 2700 ✅
+├─ Profit = $2,500
+├─ Action: ไม่ปิด → ขยับ SL → 2575
+└─ Goal: ล็อกกำไรต่อไป
+
+TP Level 4 (RR 1:10):
+├─ Target Price = 2450 + (50 × 10) = 2950 ✅
+├─ Profit = $5,000
+├─ Action: ไม่ปิด → ขยับ SL → 2700
+└─ Goal: Let it run แต่ปลอดภัย
+
+TP Level 5 (RR 1:15):
+├─ Target Price = 2450 + (50 × 15) = 3200 ✅✅✅
+├─ Profit = $7,500 🎉
+├─ Action: ❌ ปิดออเดอร์ทั้งหมด
+└─ Goal: Take Final Profit & Exit
+
+────────────────────────────────────────────────────────────
+
+สรุป SL Movement:
+TP1: SL → 2500
+TP2: SL → 2525
+TP3: SL → 2575
+TP4: SL → 2700
+TP5: Close all ❌
+
+================================================================================
+🔍 TREND FILTER EXPLANATION (HH/HL Check)
+================================================================================
+
+Higher High / Higher Low (Uptrend):
+───────────────────────────────────
+
+H4:
+  Bar 1: High=2400 Low=2350
+  Bar 0: High=2450 Low=2380
+  ✅ 2450 > 2400 (HH) AND 2380 > 2350 (HL) = UPTREND
+
+H1: (Same Logic)
+  ✅ HH/HL = UPTREND
+
+M30: (Same Logic)
+  ✅ HH/HL = UPTREND
+
+Result: ✅✅✅ ALL 3 CONFIRM = Buy Signal Ready
+
+
+Lower Low / Lower High (Downtrend):
+───────────────────────────────────
+
+H4:
+  Bar 1: High=2500 Low=2450
+  Bar 0: High=2480 Low=2420
+  ✅ 2480 < 2500 (LH) AND 2420 < 2450 (LL) = DOWNTREND
+
+Result: ✅ Sell Signal Ready
+
+════════════════════════════════════════════════════════════
+
+ความสำคัญ:
+- Trend ต้องอยู่ใน 3 TF: H4, H1, M30
+- ไม่ได้ใช้ Moving Average (EMA) - ใช้ Price Action เท่านั้น
+- Trend ต้องต่อเนื่อง ไม่ใช่ One-off Candle
+
+================================================================================
+✅ ENTRY CONFIRMATION (M5 Bullish/Bearish Close)
+================================================================================
+
+Buy Signal:
+───────────
+M5 Candle 1 (Previous):
+  Open = 2440
+  Close = 2450
+  ✅ Close > Open = BULLISH CLOSE ✅
+
+Action: Wait for Next Candle Open → Execute BUY
+
+════════════════════════════════════════════════════════════
+
+Sell Signal:
+───────────
+M5 Candle 1 (Previous):
+  Open = 2450
+  Close = 2440
+  ✅ Close < Open = BEARISH CLOSE ✅
+
+Action: Wait for Next Candle Open → Execute SELL
+
+════════════════════════════════════════════════════════════
+
+⚠️ สำคัญ:
+- ใช้ Candle 1 (Previous) ไม่ใช่ Candle 0 (Current)
+- ต้อง Bullish/Bearish Close ชัดเจน
+
+================================================================================
+🎮 OPTIMAL SETTINGS FOR XAUUSD (RECOMMENDED)
+================================================================================
+
+Asset: XAUUSD (Gold/USD)
+Chart: H1 Timeframe
+Broker: Any (ICmarkets/Pepperstone/HotForex recommended)
+
+SETTINGS:
+──────────────────────────────────────────────────────────
+RiskPercent           = 15.0
+SL_Buffer             = 150
+MagicNumber           = 100001
+UseTradeHours         = true
+TradeHours1_Start     = 11:00
+TradeHours1_End       = 16:00
+TradeHours2_Start     = 16:00
+TradeHours2_End       = 02:00
+AllowNewOrders        = true
+CloseOutsideHours     = false (ถือค้างได้)
+
+================================================================================
+📊 PERFORMANCE METRICS TO TRACK
+================================================================================
+
+Monthly Tracking:
+─────────────────────────────────────────────────────────
+Date      Trades  Wins  Loss  Win%   Profit   Drawdown
+─────────────────────────────────────────────────────────
+Jan       12      7     5     58%    $2,100   -8%
+Feb       15      9     6     60%    $2,800   -5%
+Mar       11      6     5     55%    $1,500   -12%
+─────────────────────────────────────────────────────────
+Total: 38 trades, 59% Win Rate, $6,400 Profit
+
+Target Metrics:
+✅ Win Rate > 50%
+✅ Profit Factor > 1.5
+✅ Max Drawdown < 25%
+✅ Trades per Month: 10-20
+
+================================================================================
+🔧 OPTIMIZATION CHECKLIST
+================================================================================
+
+Before Backtesting:
+□ Code compiled (0 errors)
+□ Symbol set to XAUUSD
+□ Timeframe flexible (EA auto-uses H4/H1/M30/M5)
+
+Backtesting:
+□ 6+ months historical data
+□ At least 30 trades (stat significance)
+□ Win Rate > 50%
+□ Profit Factor > 1.5
+
+Demo Trading:
+□ 2 weeks minimum
+□ Monitor daily
+□ Record all trades
+□ Check drawdown < 25%
+
+Live Trading:
+□ Start with minimum lot size
+□ Increase gradually (weekly)
+□ Track P&L daily
+□ Adjust SL_Buffer if needed
+
+================================================================================
+⚙️ PARAMETER TUNING GUIDE
+================================================================================
+
+ถ้า: Win Rate ต่ำ (< 40%)
+→ เพิ่ม SL_Buffer (150 → 200)
+→ ลด RiskPercent (15 → 10)
+
+ถ้า: Profit ไม่เพียงพอ
+→ ลด SL_Buffer (150 → 100)
+→ เพิ่ม RiskPercent (15 → 20)
+
+ถ้า: Drawdown สูง (> 30%)
+→ เลือก Profile Conservative
+→ ลด RiskPercent ลง 50%
+
+ถ้า: Lot Size เล็กเกินไป
+→ เพิ่ม Account Balance
+→ หรือเพิ่ม RiskPercent
+
+================================================================================
+🚀 DEPLOYMENT STEPS
+================================================================================
+
+Step 1: Setup MT5
+─────────────────────────────────────────────────────────
+□ Download MetaTrader 5
+□ Open real/demo account
+□ Install XAUUSD chart
+
+Step 2: Compile EA
+─────────────────────────────────────────────────────────
+□ Copy MQ5 file to Experts folder
+□ Open in MetaEditor
+□ F7 to compile
+□ Check 0 errors
+
+Step 3: Backtest
+─────────────────────────────────────────────────────────
+□ Open Strategy Tester
+□ Set period: 6-12 months
+□ Select Balanced profile
+□ Run backtest
+□ Analyze results
+
+Step 4: Demo Trade
+─────────────────────────────────────────────────────────
+□ Attach to H1 XAUUSD chart
+□ Trade 2 weeks
+□ Record all results
+□ Adjust parameters if needed
+
+Step 5: Go Live
+─────────────────────────────────────────────────────────
+□ Start with 0.01-0.05 lots
+□ Trade 1 week
+□ Increase to 0.10 lots
+□ Trade 1 month before scaling
+
+================================================================================
+VERSION HISTORY
+================================================================================
+
+v1.0 (Initial Release)
+- Basic Multi-TF trend filter
+- Simple TP system
+
+v2.0 (Current - Enhanced)
+✅ Cascade TP with SL moving
+✅ Time filter (GMT+7)
+✅ Better risk calculation
+✅ HH/HL confirmation
+✅ Position management
+✅ Lot size auto-calculation
+
+================================================================================
+END OF CONFIGURATION GUIDE
+================================================================================

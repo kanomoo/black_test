@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "method": "tools/call",
+  "params": {
+    "name": "tester_run_backtest",
+    "arguments": {
+      "config_path": "C:\\Users\\PC\\AppData\\Roaming\\MetaQuotes\\Terminal\\E3E3B02889D32F38295D39BF94B6AD4A\\MQL5\\Profiles\\Tester\\backtest_xauusd.ini"
+    }
+  },
+  "id": 5
+}

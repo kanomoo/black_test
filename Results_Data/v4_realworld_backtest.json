@@ -1,0 +1,30 @@
+{
+    "10k": {
+        "version": "EA v4.0 Apex Institutional",
+        "period": "2024-08-26 to 2026-08-24 (2 Years)",
+        "initial_usd": 10000.0,
+        "final_usd": 191398460.02,
+        "net_profit_usd": 191388460.02,
+        "roi_pct": 1913884.6,
+        "pf": 11.43,
+        "win_rate_pct": 65.41,
+        "total_trades": 344,
+        "winning_trades": 225,
+        "losing_trades": 119,
+        "max_dd_pct": 16.24
+    },
+    "15usd": {
+        "version": "EA v4.0 Apex Institutional",
+        "period": "2024-08-26 to 2026-08-24 (2 Years)",
+        "initial_usd": 15.0,
+        "final_usd": 20160.8,
+        "net_profit_usd": 20145.8,
+        "roi_pct": 134305.35,
+        "pf": 10.68,
+        "win_rate_pct": 65.41,
+        "total_trades": 344,
+        "winning_trades": 225,
+        "losing_trades": 119,
+        "max_dd_pct": 12.82
+    }
+}

@@ -1,0 +1,134 @@
+[
+    {
+        "risk_pct": 15.0,
+        "sl_buf": 1.5,
+        "final_balance": 68.38,
+        "net_profit": -9931.62,
+        "roi": -99.32,
+        "pf": 0.63,
+        "win_rate": 26.09,
+        "total_trades": 115,
+        "max_dd_pct": 99.93
+    },
+    {
+        "risk_pct": 15.0,
+        "sl_buf": 2.5,
+        "final_balance": 281.1,
+        "net_profit": -9718.9,
+        "roi": -97.19,
+        "pf": 0.61,
+        "win_rate": 26.32,
+        "total_trades": 76,
+        "max_dd_pct": 99.0
+    },
+    {
+        "risk_pct": 15.0,
+        "sl_buf": 3.5,
+        "final_balance": 294.47,
+        "net_profit": -9705.53,
+        "roi": -97.06,
+        "pf": 0.55,
+        "win_rate": 25.97,
+        "total_trades": 77,
+        "max_dd_pct": 99.16
+    },
+    {
+        "risk_pct": 5.0,
+        "sl_buf": 1.5,
+        "final_balance": 3030.81,
+        "net_profit": -6969.19,
+        "roi": -69.69,
+        "pf": 0.68,
+        "win_rate": 26.09,
+        "total_trades": 115,
+        "max_dd_pct": 83.48
+    },
+    {
+        "risk_pct": 5.0,
+        "sl_buf": 2.5,
+        "final_balance": 4249.02,
+        "net_profit": -5750.98,
+        "roi": -57.51,
+        "pf": 0.67,
+        "win_rate": 26.32,
+        "total_trades": 76,
+        "max_dd_pct": 73.13
+    },
+    {
+        "risk_pct": 5.0,
+        "sl_buf": 3.5,
+        "final_balance": 4311.76,
+        "net_profit": -5688.24,
+        "roi": -56.88,
+        "pf": 0.66,
+        "win_rate": 25.97,
+        "total_trades": 77,
+        "max_dd_pct": 73.79
+    },
+    {
+        "risk_pct": 2.0,
+        "sl_buf": 1.5,
+        "final_balance": 6921.01,
+        "net_profit": -3078.99,
+        "roi": -30.79,
+        "pf": 0.76,
+        "win_rate": 26.09,
+        "total_trades": 115,
+        "max_dd_pct": 49.81
+    },
+    {
+        "risk_pct": 2.0,
+        "sl_buf": 2.5,
+        "final_balance": 7491.13,
+        "net_profit": -2508.87,
+        "roi": -25.09,
+        "pf": 0.73,
+        "win_rate": 26.32,
+        "total_trades": 76,
+        "max_dd_pct": 39.5
+    },
+    {
+        "risk_pct": 2.0,
+        "sl_buf": 3.5,
+        "final_balance": 7700.93,
+        "net_profit": -2299.07,
+        "roi": -22.99,
+        "pf": 0.75,
+        "win_rate": 25.97,
+        "total_trades": 77,
+        "max_dd_pct": 38.46
+    },
+    {
+        "risk_pct": 1.0,
+        "sl_buf": 1.5,
+        "final_balance": 8465.07,
+        "net_profit": -1534.93,
+        "roi": -15.35,
+        "pf": 0.79,
+        "win_rate": 26.09,
+        "total_trades": 115,
+        "max_dd_pct": 29.24
+    },
+    {
+        "risk_pct": 1.0,
+        "sl_buf": 2.5,
+        "final_balance": 8703.84,
+        "net_profit": -1296.16,
+        "roi": -12.96,
+        "pf": 0.74,
+        "win_rate": 26.32,
+        "total_trades": 76,
+        "max_dd_pct": 22.29
+    },
+    {
+        "risk_pct": 1.0,
+        "sl_buf": 3.5,
+        "final_balance": 8795.89,
+        "net_profit": -1204.11,
+        "roi": -12.04,
+        "pf": 0.76,
+        "win_rate": 25.97,
+        "total_trades": 77,
+        "max_dd_pct": 21.71
+    }
+]

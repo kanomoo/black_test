@@ -1,0 +1,28 @@
+{
+    "15usd": {
+        "period": "2026-08-17 to 2026-08-24",
+        "initial_usd": 15.0,
+        "final_usd": 15.46,
+        "net_profit_usd": 0.46,
+        "roi_percent": 3.09,
+        "profit_factor": 0.17,
+        "win_rate_percent": 53.85,
+        "total_trades": 13,
+        "winning_trades": 7,
+        "losing_trades": 6,
+        "max_drawdown_percent": 9.63
+    },
+    "10k": {
+        "period": "2026-08-17 to 2026-08-24",
+        "initial_usd": 10000.0,
+        "final_usd": 10296.2,
+        "net_profit_usd": 296.2,
+        "roi_percent": 2.96,
+        "profit_factor": 0.17,
+        "win_rate_percent": 53.85,
+        "total_trades": 13,
+        "winning_trades": 7,
+        "losing_trades": 6,
+        "max_drawdown_percent": 9.65
+    }
+}

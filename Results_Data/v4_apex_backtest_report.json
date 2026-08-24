@@ -1,0 +1,38 @@
+{
+    "v4_10k_safe": {
+        "version": "EA v4.0 Apex Institutional",
+        "period": "2024-08-26 to 2026-08-24 (2 Years)",
+        "initial_usd": 10000.0,
+        "final_usd": 5.775587423301073e+16,
+        "net_profit_usd": 5.775587423300073e+16,
+        "roi_pct": 577558742330007.4,
+        "pf": 15.61,
+        "win_rate_pct": 86.9,
+        "total_trades": 458,
+        "max_dd_pct": 7.32
+    },
+    "v4_10k_aggr": {
+        "version": "EA v4.0 Apex Institutional",
+        "period": "2024-08-26 to 2026-08-24 (2 Years)",
+        "initial_usd": 10000.0,
+        "final_usd": 3.3255110061335796e+27,
+        "net_profit_usd": 3.3255110061335796e+27,
+        "roi_pct": 3.3255110061335795e+25,
+        "pf": 8.7,
+        "win_rate_pct": 86.9,
+        "total_trades": 458,
+        "max_dd_pct": 14.26
+    },
+    "v4_15usd": {
+        "version": "EA v4.0 Apex Institutional",
+        "period": "2024-08-26 to 2026-08-24 (2 Years)",
+        "initial_usd": 15.0,
+        "final_usd": 671104465606807.4,
+        "net_profit_usd": 671104465606792.4,
+        "roi_pct": 4474029770711949.0,
+        "pf": 8.37,
+        "win_rate_pct": 71.96,
+        "total_trades": 378,
+        "max_dd_pct": 21.51
+    }
+}

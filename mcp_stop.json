@@ -1,0 +1,11 @@
+{
+  "method": "tools/call",
+  "params": {
+    "name": "tester_stop",
+    "arguments": {
+      "run_id": 7677555004182156188
+    }
+  },
+  "id": 4,
+  "jsonrpc": "2.0"
+}

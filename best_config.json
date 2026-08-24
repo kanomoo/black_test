@@ -1,0 +1,12 @@
+{
+    "risk_pct": 2.0,
+    "atr_mult": 1.5,
+    "rr_target": 2.0,
+    "final_balance": 10889.34,
+    "net_profit": 889.34,
+    "roi": 8.89,
+    "pf": 1.06,
+    "win_rate": 39.62,
+    "total_trades": 106.0,
+    "max_dd_pct": 30.31
+}
