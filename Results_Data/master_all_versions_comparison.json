@@ -24,9 +24,9 @@
     {
         "version": "EA v3.0 Scalp Edition",
         "initial_usd": 10000.0,
-        "final_usd": 284387166.18,
-        "net_profit_usd": 284377166.18,
-        "roi_pct": 2843771.66,
+        "final_usd": 284569687.18,
+        "net_profit_usd": 284559687.18,
+        "roi_pct": 2845596.87,
         "pf": 9.23,
         "win_rate_pct": 69.31,
         "total_trades": 694,
@@ -35,12 +35,12 @@
     {
         "version": "EA v4.0 Apex Institutional",
         "initial_usd": 10000.0,
-        "final_usd": 191398460.02,
-        "net_profit_usd": 191388460.02,
-        "roi_pct": 1913884.6,
-        "pf": 11.43,
-        "win_rate_pct": 65.41,
-        "total_trades": 344,
+        "final_usd": 191672779.21,
+        "net_profit_usd": 191662779.21,
+        "roi_pct": 1916627.79,
+        "pf": 11.44,
+        "win_rate_pct": 65.51,
+        "total_trades": 345,
         "max_dd_pct": 16.24
     },
     {
@@ -68,9 +68,9 @@
     {
         "version": "EA v3.0 Scalp Edition",
         "initial_usd": 15.0,
-        "final_usd": 29553.28,
-        "net_profit_usd": 29538.28,
-        "roi_pct": 196921.86,
+        "final_usd": 29571.53,
+        "net_profit_usd": 29556.53,
+        "roi_pct": 197043.54,
         "pf": 9.2,
         "win_rate_pct": 69.31,
         "total_trades": 694,
@@ -79,12 +79,12 @@
     {
         "version": "EA v4.0 Apex Institutional",
         "initial_usd": 15.0,
-        "final_usd": 20160.8,
-        "net_profit_usd": 20145.8,
-        "roi_pct": 134305.35,
-        "pf": 10.68,
-        "win_rate_pct": 65.41,
-        "total_trades": 344,
+        "final_usd": 20188.23,
+        "net_profit_usd": 20173.23,
+        "roi_pct": 134488.23,
+        "pf": 10.7,
+        "win_rate_pct": 65.51,
+        "total_trades": 345,
         "max_dd_pct": 12.82
     }
 ]

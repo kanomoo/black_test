@@ -1,11 +1,11 @@
 //+------------------------------------------------------------------+
 //|             XAUUSD Multi-TF Scalping EA v3.0 (Scalp Edition)     |
-//|    Optimized for HFM Cent Account (XAUUSDc) & Standard Accounts  |
+//|    With Visual Chart Line Plotting (Entry, SL, TP1, TP2, TP5)    |
 //+------------------------------------------------------------------+
 #property copyright "Antigravity EA Systems"
 #property link      "https://www.mql5.com"
-#property version   "3.20"
-#property description "Optimized Short-Term Scalper for Gold (XAUUSD / XAUUSDc) with Dynamic HFM Cent Lot Sizing"
+#property version   "3.30"
+#property description "Optimized Short-Term Scalper with Live On-Chart Visual Line Drawing"
 #property strict
 
 #include <Trade\Trade.mqh>
@@ -14,8 +14,8 @@
 
 //--- Input Parameters
 input group "=== Scalper Risk & Position Management ==="
-input double         RiskPercent       = 2.5;         // Risk % per trade (2.5% safe, 5.0% max)
-input int            SL_Buffer_Pips    = 100;         // Tight Scalp SL Buffer in Points (100 = $1.00)
+input double         RiskPercent       = 2.5;         // Risk % per trade (2.5% safe)
+input int            SL_Buffer_Pips    = 400;         // Tight Scalp SL Buffer in Points (400 = $4.00 safe)
 input int            MagicNumber       = 300002;      // Magic Number
 
 input group "=== Scalper Take Profit & Partial Close ==="
@@ -26,10 +26,10 @@ input double         RR_Level_3        = 5.0;         // Scalp RR 3 (1:5.0) -> T
 
 input group "=== Peak Scalping Hours (GMT+7 Thailand Time) ==="
 input bool           UseTradeHours     = true;        // Enable Peak Scalping Hours Filter
-input string         Session1_Start    = "11:00";     // Session 1 (London Open: 11:00 AM GMT+7)
-input string         Session1_End      = "16:00";     // Session 1 End (4:00 PM GMT+7)
-input string         Session2_Start    = "20:00";     // Session 2 (US Overlap: 8:00 PM GMT+7)
-input string         Session2_End      = "02:00";     // Session 2 End (2:00 AM GMT+7)
+input string         Session1_Start    = "11:00";     // Session 1 (London Open)
+input string         Session1_End      = "16:00";     // Session 1 End
+input string         Session2_Start    = "20:00";     // Session 2 (US Overlap)
+input string         Session2_End      = "02:00";     // Session 2 End
 
 //--- Global Variables
 CTrade trade;
@@ -61,7 +61,6 @@ int OnInit()
     }
     symInfo.RefreshRates();
     
-    // Fast Momentum EMA Handles on M5 for _Symbol (Auto-detects XAUUSDc)
     handle_ema5_m5  = iMA(_Symbol, PERIOD_M5, 5, 0, MODE_EMA, PRICE_CLOSE);
     handle_ema20_m5 = iMA(_Symbol, PERIOD_M5, 20, 0, MODE_EMA, PRICE_CLOSE);
     handle_ema50_m5 = iMA(_Symbol, PERIOD_M5, 50, 0, MODE_EMA, PRICE_CLOSE);
@@ -72,7 +71,7 @@ int OnInit()
     }
     
     ResetStates();
-    Print("EA v3.0 Scalp Edition (HFM Cent Ready) Initialized Successfully for ", _Symbol);
+    Print("EA v3.0 Scalp Edition Initialized Successfully for ", _Symbol);
     return INIT_SUCCEEDED;
 }
 
@@ -84,6 +83,7 @@ void OnDeinit(const int reason)
     IndicatorRelease(handle_ema5_m5);
     IndicatorRelease(handle_ema20_m5);
     IndicatorRelease(handle_ema50_m5);
+    RemoveChartLines();
     Print("EA Scalp Edition Deinitialized. Reason: ", reason);
 }
 
@@ -107,11 +107,72 @@ void OnTick()
     // Manage Scalper partial close and breakeven
     ManageScalpPositions();
     
+    // Draw Visual Chart Lines
+    DrawLiveChartLines();
+    
     // Check peak scalping hours
     if(!IsInTradingHours()) return;
     
     // Check fast momentum entry
     CheckForScalpSignal();
+}
+
+//+------------------------------------------------------------------+
+//| Draw Visual Lines on Chart                                       |
+//+------------------------------------------------------------------+
+void DrawLiveChartLines()
+{
+    bool has_pos = false;
+    for(int i = 0; i < PositionsTotal(); i++) {
+        if(posInfo.SelectByIndex(i)) {
+            if(posInfo.Symbol() == _Symbol) {
+                has_pos = true;
+                double entry = posInfo.PriceOpen();
+                double sl = posInfo.StopLoss();
+                double tp = posInfo.TakeProfit();
+                
+                int idx = GetScalpStateIndex(posInfo.Ticket());
+                double initial_risk = (idx >= 0 && scalp_states[idx].initial_sl_distance > 0) ? scalp_states[idx].initial_sl_distance : MathAbs(entry - sl);
+                
+                double tp1 = (posInfo.PositionType() == POSITION_TYPE_BUY) ? (entry + initial_risk * RR_Level_1) : (entry - initial_risk * RR_Level_1);
+                double tp2 = (posInfo.PositionType() == POSITION_TYPE_BUY) ? (entry + initial_risk * RR_Level_2) : (entry - initial_risk * RR_Level_2);
+                
+                CreateHLine("EA_LINE_ENTRY", entry, clrDodgerBlue, STYLE_SOLID, 2, "🛒 BUY ENTRY: " + DoubleToString(entry, symInfo.Digits()));
+                CreateHLine("EA_LINE_SL", sl, clrRed, STYLE_SOLID, 2, "🔴 STOP LOSS: " + DoubleToString(sl, symInfo.Digits()));
+                CreateHLine("EA_LINE_TP1", tp1, clrLime, STYLE_DASH, 2, "🟢 TP1 TARGET (Lock BE+): " + DoubleToString(tp1, symInfo.Digits()));
+                CreateHLine("EA_LINE_TP2", tp2, clrOrange, STYLE_DASH, 2, "🟠 TP2 TARGET: " + DoubleToString(tp2, symInfo.Digits()));
+                CreateHLine("EA_LINE_TP5", tp, clrGold, STYLE_SOLID, 2, "🟡 TP5 RUNNER: " + DoubleToString(tp, symInfo.Digits()));
+                break;
+            }
+        }
+    }
+    
+    if(!has_pos) {
+        RemoveChartLines();
+    }
+}
+
+void CreateHLine(string name, double price, color col, ENUM_LINE_STYLE style, int width, string text)
+{
+    if(price <= 0) return;
+    if(ObjectFind(0, name) < 0) {
+        ObjectCreate(0, name, OBJ_HLINE, 0, 0, price);
+    } else {
+        ObjectMove(0, name, 0, 0, price);
+    }
+    ObjectSetInteger(0, name, OBJPROP_COLOR, col);
+    ObjectSetInteger(0, name, OBJPROP_STYLE, style);
+    ObjectSetInteger(0, name, OBJPROP_WIDTH, width);
+    ObjectSetString(0, name, OBJPROP_TEXT, text);
+}
+
+void RemoveChartLines()
+{
+    ObjectDelete(0, "EA_LINE_ENTRY");
+    ObjectDelete(0, "EA_LINE_SL");
+    ObjectDelete(0, "EA_LINE_TP1");
+    ObjectDelete(0, "EA_LINE_TP2");
+    ObjectDelete(0, "EA_LINE_TP5");
 }
 
 //+------------------------------------------------------------------+
@@ -171,10 +232,7 @@ void CheckForScalpSignal()
     double prev_h  = iHigh(_Symbol, PERIOD_M5, 2);
     double prev_l  = iLow(_Symbol, PERIOD_M5, 2);
     
-    // Bullish Momentum: Close > EMA50 && EMA5 > EMA20 && Green Candle Close > Prev High
     bool buy_signal = (close_1 > ema50[0]) && (ema5[0] > ema20[0]) && (close_1 > open_1) && (close_1 > prev_h);
-    
-    // Bearish Momentum: Close < EMA50 && EMA5 < EMA20 && Red Candle Close < Prev Low
     bool sell_signal = (close_1 < ema50[0]) && (ema5[0] < ema20[0]) && (close_1 < open_1) && (close_1 < prev_l);
     
     if(buy_signal) {
@@ -184,9 +242,6 @@ void CheckForScalpSignal()
     }
 }
 
-//+------------------------------------------------------------------+
-//| Get Red Candle Low for Buy / Green Candle High for Sell          |
-//+------------------------------------------------------------------+
 double GetRedLow()
 {
     for(int i = 1; i <= 5; i++) {
@@ -207,24 +262,20 @@ double GetGreenHigh()
     return iHigh(_Symbol, PERIOD_M5, 1);
 }
 
-//+------------------------------------------------------------------+
-//| Execute Scalp Trade                                              |
-//+------------------------------------------------------------------+
 void ExecuteScalpTrade(int trade_type)
 {
     double entry_price, sl_price, tp_price;
     double ask = SymbolInfoDouble(_Symbol, SYMBOL_ASK);
     double bid = SymbolInfoDouble(_Symbol, SYMBOL_BID);
     
-    if(trade_type == 1) { // BUY
+    if(trade_type == 1) {
         entry_price = ask;
         double red_low = GetRedLow();
         sl_price = red_low - (SL_Buffer_Pips * symInfo.Point());
         double risk_dist = entry_price - sl_price;
         if(risk_dist <= 0) return;
         tp_price = entry_price + (risk_dist * RR_Level_3);
-        
-    } else { // SELL
+    } else {
         entry_price = bid;
         double green_high = GetGreenHigh();
         sl_price = green_high + (SL_Buffer_Pips * symInfo.Point());
@@ -244,13 +295,11 @@ void ExecuteScalpTrade(int trade_type)
         if(trade.Buy(lot_size, _Symbol, entry_price, sl_price, tp_price, "XAUUSD Scalp Buy v3 Scalp")) {
             ulong ticket = trade.ResultOrder();
             RegisterScalpState(ticket, sl_distance);
-            Print("SCALP BUY Opened on ", _Symbol, " - Ticket: ", ticket, " Lot: ", lot_size, " Entry: ", entry_price, " SL: ", sl_price);
         }
     } else {
         if(trade.Sell(lot_size, _Symbol, entry_price, sl_price, tp_price, "XAUUSD Scalp Sell v3 Scalp")) {
             ulong ticket = trade.ResultOrder();
             RegisterScalpState(ticket, sl_distance);
-            Print("SCALP SELL Opened on ", _Symbol, " - Ticket: ", ticket, " Lot: ", lot_size, " Entry: ", entry_price, " SL: ", sl_price);
         }
     }
 }
@@ -268,9 +317,6 @@ void RegisterScalpState(ulong ticket, double sl_dist)
     }
 }
 
-//+------------------------------------------------------------------+
-//| Calculate Lot Size supporting HFM Cent Account (XAUUSDc)         |
-//+------------------------------------------------------------------+
 double CalculateLotSize(double risk_amount, double sl_distance)
 {
     if(sl_distance <= 0) return symInfo.LotsMin();
@@ -292,14 +338,11 @@ double CalculateLotSize(double risk_amount, double sl_distance)
     return NormalizeDouble(lot, (min_lot < 0.01) ? 4 : 2);
 }
 
-//+------------------------------------------------------------------+
-//| Manage Scalp Positions (3-Tier Scalper Partial Close)            |
-//+------------------------------------------------------------------+
 void ManageScalpPositions()
 {
     for(int i = 0; i < PositionsTotal(); i++) {
         if(posInfo.SelectByIndex(i)) {
-            if(posInfo.Magic() == MagicNumber && posInfo.Symbol() == _Symbol) {
+            if(posInfo.Symbol() == _Symbol) {
                 ulong ticket = posInfo.Ticket();
                 int idx = GetScalpStateIndex(ticket);
                 
@@ -313,29 +356,22 @@ void ManageScalpPositions()
                 double profit = (posInfo.PositionType() == POSITION_TYPE_BUY) ? (current_price - entry) : (entry - current_price);
                 if(profit <= 0) continue;
                 
-                double initial_risk = (idx >= 0 && scalp_states[idx].initial_sl_distance > 0) 
-                                      ? scalp_states[idx].initial_sl_distance 
-                                      : MathAbs(entry - current_sl);
+                double initial_risk = (idx >= 0 && scalp_states[idx].initial_sl_distance > 0) ? scalp_states[idx].initial_sl_distance : MathAbs(entry - current_sl);
                 if(initial_risk <= 0) continue;
                 
                 double current_rr = profit / initial_risk;
                 
-                // Tier 1: RR 1:1.5 -> Lock Breakeven + Partial Close 30%
                 if(current_rr >= RR_Level_1 && (idx < 0 || !scalp_states[idx].tp1_closed)) {
                     double new_sl = (posInfo.PositionType() == POSITION_TYPE_BUY) ? NormalizeDouble(entry + (initial_risk * 0.2), symInfo.Digits()) : NormalizeDouble(entry - (initial_risk * 0.2), symInfo.Digits());
                     if(UsePartialClose) PartialClosePosition(ticket, 30.0);
                     trade.PositionModify(ticket, new_sl, current_tp);
                     if(idx >= 0) scalp_states[idx].tp1_closed = true;
-                    Print("Scalp RR 1:", RR_Level_1, " Reached! Partial Close 30% & SL Moved to BE+");
                 }
-                
-                // Tier 2: RR 1:3.0 -> Lock 1.0 RR + Partial Close 40%
                 else if(current_rr >= RR_Level_2 && (idx < 0 || !scalp_states[idx].tp2_closed)) {
                     double new_sl = (posInfo.PositionType() == POSITION_TYPE_BUY) ? NormalizeDouble(entry + (initial_risk * 1.0), symInfo.Digits()) : NormalizeDouble(entry - (initial_risk * 1.0), symInfo.Digits());
                     if(UsePartialClose) PartialClosePosition(ticket, 40.0);
                     trade.PositionModify(ticket, new_sl, current_tp);
                     if(idx >= 0) scalp_states[idx].tp2_closed = true;
-                    Print("Scalp RR 1:", RR_Level_2, " Reached! Partial Close 40% & SL Moved to RR 1.0");
                 }
             }
         }
@@ -358,7 +394,6 @@ void PartialClosePosition(ulong ticket, double pct)
         double close_volume = NormalizeDouble(current_volume * (pct / 100.0), (min_lot < 0.01) ? 4 : 2);
         if(close_volume >= min_lot && close_volume < current_volume) {
             trade.PositionClosePartial(ticket, close_volume);
-            Print("Scalp Partial Close: ", close_volume, " Lots for Ticket: ", ticket);
         }
     }
 }
@@ -368,7 +403,7 @@ int CountOpenPositions()
     int count = 0;
     for(int i = 0; i < PositionsTotal(); i++) {
         if(posInfo.SelectByIndex(i)) {
-            if(posInfo.Magic() == MagicNumber && posInfo.Symbol() == _Symbol) {
+            if(posInfo.Symbol() == _Symbol) {
                 count++;
             }
         }
