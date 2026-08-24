@@ -1,0 +1,123 @@
+[
+  {
+    "EA": "XAUUSD_MultiTF_Scalping_EA_v2.ex5",
+    "NetProfitUSC": 0.0,
+    "NetProfitUSD": 0.0,
+    "FinalBalanceUSD": 7.5,
+    "Trades": "0",
+    "ProfitFactor": "0.00",
+    "MaxDrawdown": "0.00%",
+    "WinRate": "0.0%",
+    "ReportFile": "C:\\Users\\PC\\AppData\\Roaming\\MetaQuotes\\Terminal\\E3E3B02889D32F38295D39BF94B6AD4A\\Report_REAL_MT5_XAUUSD_MultiTF_Scalping_EA_v2.html"
+  },
+  {
+    "EA": "XAUUSD_MultiTF_Scalping_EA_v3.ex5",
+    "NetProfitUSC": 0.0,
+    "NetProfitUSD": 0.0,
+    "FinalBalanceUSD": 7.5,
+    "Trades": "0",
+    "ProfitFactor": "0.00",
+    "MaxDrawdown": "0.00%",
+    "WinRate": "0.0%",
+    "ReportFile": "C:\\Users\\PC\\AppData\\Roaming\\MetaQuotes\\Terminal\\E3E3B02889D32F38295D39BF94B6AD4A\\Report_REAL_MT5_XAUUSD_MultiTF_Scalping_EA_v3.html"
+  },
+  {
+    "EA": "XAUUSD_MultiTF_Scalping_EA_v3_Scalp.ex5",
+    "NetProfitUSC": 0.0,
+    "NetProfitUSD": 0.0,
+    "FinalBalanceUSD": 7.5,
+    "Trades": "0",
+    "ProfitFactor": "0.00",
+    "MaxDrawdown": "0.00%",
+    "WinRate": "0.0%",
+    "ReportFile": "C:\\Users\\PC\\AppData\\Roaming\\MetaQuotes\\Terminal\\E3E3B02889D32F38295D39BF94B6AD4A\\Report_REAL_MT5_XAUUSD_MultiTF_Scalping_EA_v3_Scalp.html"
+  },
+  {
+    "EA": "XAUUSD_Apex_Institutional_EA_v4.ex5",
+    "NetProfitUSC": 0.0,
+    "NetProfitUSD": 0.0,
+    "FinalBalanceUSD": 7.5,
+    "Trades": "0",
+    "ProfitFactor": "0.00",
+    "MaxDrawdown": "0.00%",
+    "WinRate": "0.0%",
+    "ReportFile": "C:\\Users\\PC\\AppData\\Roaming\\MetaQuotes\\Terminal\\E3E3B02889D32F38295D39BF94B6AD4A\\Report_REAL_MT5_XAUUSD_Apex_Institutional_EA_v4.html"
+  },
+  {
+    "EA": "XAUUSD_SMC_CustomFibo_EA_v5.ex5",
+    "NetProfitUSC": 0.0,
+    "NetProfitUSD": 0.0,
+    "FinalBalanceUSD": 7.5,
+    "Trades": "0",
+    "ProfitFactor": "0.00",
+    "MaxDrawdown": "0.00%",
+    "WinRate": "0.0%",
+    "ReportFile": "C:\\Users\\PC\\AppData\\Roaming\\MetaQuotes\\Terminal\\E3E3B02889D32F38295D39BF94B6AD4A\\Report_REAL_MT5_XAUUSD_SMC_CustomFibo_EA_v5.html"
+  },
+  {
+    "EA": "XAUUSD_MT5_Native_Institutional_EA_v6.ex5",
+    "NetProfitUSC": 0.0,
+    "NetProfitUSD": 0.0,
+    "FinalBalanceUSD": 7.5,
+    "Trades": "0",
+    "ProfitFactor": "0.00",
+    "MaxDrawdown": "0.00%",
+    "WinRate": "0.0%",
+    "ReportFile": "C:\\Users\\PC\\AppData\\Roaming\\MetaQuotes\\Terminal\\E3E3B02889D32F38295D39BF94B6AD4A\\Report_REAL_MT5_XAUUSD_MT5_Native_Institutional_EA_v6.html"
+  },
+  {
+    "EA": "XAUUSD_Apex_MaxProfit_EA_v7.ex5",
+    "NetProfitUSC": 0.0,
+    "NetProfitUSD": 0.0,
+    "FinalBalanceUSD": 7.5,
+    "Trades": "0",
+    "ProfitFactor": "0.00",
+    "MaxDrawdown": "0.00%",
+    "WinRate": "0.0%",
+    "ReportFile": "C:\\Users\\PC\\AppData\\Roaming\\MetaQuotes\\Terminal\\E3E3B02889D32F38295D39BF94B6AD4A\\Report_REAL_MT5_XAUUSD_Apex_MaxProfit_EA_v7.html"
+  },
+  {
+    "EA": "XAUUSD_SMC_CustomFibo_EA_v8.ex5",
+    "NetProfitUSC": 0.0,
+    "NetProfitUSD": 0.0,
+    "FinalBalanceUSD": 7.5,
+    "Trades": "0",
+    "ProfitFactor": "0.00",
+    "MaxDrawdown": "0.00%",
+    "WinRate": "0.0%",
+    "ReportFile": "C:\\Users\\PC\\AppData\\Roaming\\MetaQuotes\\Terminal\\E3E3B02889D32F38295D39BF94B6AD4A\\Report_REAL_MT5_XAUUSD_SMC_CustomFibo_EA_v8.html"
+  },
+  {
+    "EA": "XAUUSD_Apex_Champion_v9.ex5",
+    "NetProfitUSC": 0.0,
+    "NetProfitUSD": 0.0,
+    "FinalBalanceUSD": 7.5,
+    "Trades": "0",
+    "ProfitFactor": "0.00",
+    "MaxDrawdown": "0.00%",
+    "WinRate": "0.0%",
+    "ReportFile": "C:\\Users\\PC\\AppData\\Roaming\\MetaQuotes\\Terminal\\E3E3B02889D32F38295D39BF94B6AD4A\\Report_REAL_MT5_XAUUSD_Apex_Champion_v9.html"
+  },
+  {
+    "EA": "XAUUSD_Apex_Grandmaster_v10.ex5",
+    "NetProfitUSC": 0.0,
+    "NetProfitUSD": 0.0,
+    "FinalBalanceUSD": 7.5,
+    "Trades": "0",
+    "ProfitFactor": "0.00",
+    "MaxDrawdown": "0.00%",
+    "WinRate": "0.0%",
+    "ReportFile": "C:\\Users\\PC\\AppData\\Roaming\\MetaQuotes\\Terminal\\E3E3B02889D32F38295D39BF94B6AD4A\\Report_REAL_MT5_XAUUSD_Apex_Grandmaster_v10.html"
+  },
+  {
+    "EA": "XAUUSD_Apex_Champion_v11.ex5",
+    "NetProfitUSC": 0.0,
+    "NetProfitUSD": 0.0,
+    "FinalBalanceUSD": 7.5,
+    "Trades": "0",
+    "ProfitFactor": "0.00",
+    "MaxDrawdown": "0.00%",
+    "WinRate": "0.0%",
+    "ReportFile": "C:\\Users\\PC\\AppData\\Roaming\\MetaQuotes\\Terminal\\E3E3B02889D32F38295D39BF94B6AD4A\\Report_REAL_MT5_XAUUSD_Apex_Champion_v11.html"
+  }
+]
