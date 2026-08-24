@@ -1,0 +1,201 @@
+import yfinance as yf
+import pandas as pd
+import numpy as np
+import json
+
+print("==========================================================================")
+print("  ENHANCED SMC + CUSTOM FIBONACCI EA v5.0 - OPTIMIZATION ENGINE")
+print("==========================================================================")
+
+# Download 2 years of Gold data
+gold = yf.Ticker("GC=F")
+df_raw = gold.history(period="2y", interval="1h").dropna()
+
+print(f"Loaded {len(df_raw)} 1-hour bars for Gold from {df_raw.index[0].date()} to {df_raw.index[-1].date()}.")
+
+df = df_raw.copy()
+df['EMA10'] = df['Close'].ewm(span=10, adjust=False).mean()
+df['EMA20'] = df['Close'].ewm(span=20, adjust=False).mean()
+df['EMA50'] = df['Close'].ewm(span=50, adjust=False).mean()
+df['EMA200'] = df['Close'].ewm(span=200, adjust=False).mean()
+
+# ATR 14
+high_low = df['High'] - df['Low']
+high_close = np.abs(df['High'] - df['Close'].shift())
+low_close = np.abs(df['Low'] - df['Close'].shift())
+ranges = pd.concat([high_low, high_close, low_close], axis=1)
+true_range = np.max(ranges, axis=1)
+df['ATR14'] = true_range.rolling(14).mean()
+
+df['High_Roll_3'] = df['High'].shift(1).rolling(3).max()
+df['Low_Roll_3'] = df['Low'].shift(1).rolling(3).min()
+df['High_Roll_12'] = df['High'].shift(1).rolling(12).max()
+df['Low_Roll_12'] = df['Low'].shift(1).rolling(12).min()
+
+df = df.dropna()
+
+closes = df['Close'].values
+highs = df['High'].values
+lows = df['Low'].values
+opens = df['Open'].values
+atrs = df['ATR14'].values
+ema10 = df['EMA10'].values
+ema20 = df['EMA20'].values
+ema50 = df['EMA50'].values
+ema200 = df['EMA200'].values
+
+roll_h3 = df['High_Roll_3'].values
+roll_l3 = df['Low_Roll_3'].values
+roll_h12 = df['High_Roll_12'].values
+roll_l12 = df['Low_Roll_12'].values
+
+hours = df.index.hour.values
+times = df.index
+n = len(closes)
+
+def run_smc_fibo_sim(initial_deposit=10000.0, risk_pct=2.5, is_cent=False):
+    balance = initial_deposit * 100.0 if is_cent else initial_deposit
+    peak = balance
+    max_dd_pct = 0.0
+    trades = []
+    open_pos = None
+    
+    # Custom Fib Ratios from TradingView image
+    fib_green = 0.254618
+    fib_red   = 0.193661
+    fib_yellow= 0.134618
+    
+    tp1_ratio = 0.84618
+    tp2_ratio = 1.00000
+    tp3_ratio = 1.24618
+    tp4_ratio = 1.53618
+    tp5_ratio = 1.724618
+    
+    for i in range(12, n):
+        hr = hours[i]
+        in_hours = (11 <= hr < 16) or (19 <= hr <= 23) or (0 <= hr < 2)
+        c, h, l, o, a = closes[i], highs[i], lows[i], opens[i], atrs[i]
+        
+        if balance <= 1.0: break
+        
+        if open_pos is not None:
+            p_type, entry, sl, tp5, lot, swing_h, swing_l, tp1, tp2, tp3, tp4, tp1_d, tp2_d = open_pos
+            closed = False
+            exit_p = 0.0
+            
+            if p_type == 1:
+                if l <= sl: closed = True; exit_p = sl
+                elif h >= tp5: closed = True; exit_p = tp5
+                else:
+                    if h >= tp1 and not tp1_d:
+                        open_pos[11] = True
+                        open_pos[2] = entry + (entry - sl) * 0.2
+                        balance += (tp1 - entry) * (lot * 0.3) * (1.0 if is_cent else 100.0)
+                        open_pos[4] = lot * 0.7
+                    elif h >= tp2 and not tp2_d:
+                        open_pos[12] = True
+                        open_pos[2] = tp1
+                        balance += (tp2 - entry) * (lot * 0.3) * (1.0 if is_cent else 100.0)
+                        open_pos[4] = lot * 0.4
+            else:
+                if h >= sl: closed = True; exit_p = sl
+                elif l <= tp5: closed = True; exit_p = tp5
+                else:
+                    if l <= tp1 and not tp1_d:
+                        open_pos[11] = True
+                        open_pos[2] = entry - (sl - entry) * 0.2
+                        balance += (entry - tp1) * (lot * 0.3) * (1.0 if is_cent else 100.0)
+                        open_pos[4] = lot * 0.7
+                    elif l <= tp2 and not tp2_d:
+                        open_pos[12] = True
+                        open_pos[2] = tp1
+                        balance += (entry - tp2) * (lot * 0.3) * (1.0 if is_cent else 100.0)
+                        open_pos[4] = lot * 0.4
+                        
+            if closed:
+                rem_pnl = (exit_p - entry) * open_pos[4] * (1.0 if is_cent else 100.0) if p_type == 1 else (entry - exit_p) * open_pos[4] * (1.0 if is_cent else 100.0)
+                balance += rem_pnl
+                if balance > peak: peak = balance
+                dd = ((peak - balance) / peak) * 100 if peak > 0 else 0
+                if dd > max_dd_pct: max_dd_pct = dd
+                trades.append(rem_pnl)
+                open_pos = None
+                
+        if open_pos is None and in_hours:
+            sw_h = roll_h12[i]
+            sw_l = roll_l12[i]
+            range_h = sw_h - sw_l
+            
+            if range_h > (a * 1.5):
+                buy_zone_top = sw_l + (range_h * fib_green)
+                buy_zone_bot = sw_l + (range_h * fib_yellow)
+                
+                sell_zone_top = sw_h - (range_h * fib_yellow)
+                sell_zone_bot = sw_h - (range_h * fib_green)
+                
+                # SMC Structure Alignment: Trend + BOS Confirmation
+                uptrend = (c > ema200[i]) and (ema10[i] > ema50[i]) and (c > roll_h3[i])
+                downtrend = (c < ema200[i]) and (ema10[i] < ema50[i]) and (c < roll_l3[i])
+                
+                # Entry Confirmation inside Fib Zone
+                buy_sig = uptrend and (buy_zone_bot <= c <= buy_zone_top) and (c > o)
+                sell_sig = downtrend and (sell_zone_bot <= c <= sell_zone_top) and (c < o)
+                
+                sig = 1 if buy_sig else (-1 if sell_sig else 0)
+                
+                if sig != 0:
+                    entry = c
+                    if sig == 1:
+                        sl = sw_l - (a * 0.8) # Below 0.0 with ATR Buffer
+                        sl_dist = entry - sl
+                        tp1 = sw_l + (range_h * tp1_ratio)
+                        tp2 = sw_l + (range_h * tp2_ratio)
+                        tp3 = sw_l + (range_h * tp3_ratio)
+                        tp4 = sw_l + (range_h * tp4_ratio)
+                        tp5 = sw_l + (range_h * tp5_ratio)
+                    else:
+                        sl = sw_h + (a * 0.8)
+                        sl_dist = sl - entry
+                        tp1 = sw_h - (range_h * tp1_ratio)
+                        tp2 = sw_h - (range_h * tp2_ratio)
+                        tp3 = sw_h - (range_h * tp3_ratio)
+                        tp4 = sw_h - (range_h * tp4_ratio)
+                        tp5 = sw_h - (range_h * tp5_ratio)
+                        
+                    if sl_dist > 0:
+                        risk_amt = balance * (risk_pct / 100.0)
+                        lot = max(0.01, min(100.0, round(risk_amt / (sl_dist * (1.0 if is_cent else 100.0)), 2)))
+                        open_pos = [sig, entry, sl, tp5, lot, sw_h, sw_l, tp1, tp2, tp3, tp4, False, False]
+
+    num_t = len(trades)
+    wins = [p for p in trades if p > 0]
+    losses = [p for p in trades if p < 0]
+    w_rate = (len(wins) / num_t * 100) if num_t > 0 else 0
+    pf = (sum(wins) / abs(sum(losses))) if abs(sum(losses)) > 0 else 1.0
+    final_usd = balance / 100.0 if is_cent else balance
+    net_usd = final_usd - initial_deposit
+    
+    return {
+        "version": "SMC + Custom Fibo EA v5.0",
+        "initial_usd": initial_deposit,
+        "final_usd": round(final_usd, 2),
+        "net_profit_usd": round(net_usd, 2),
+        "roi_pct": round((net_usd / initial_deposit) * 100, 2),
+        "pf": round(pf, 2),
+        "win_rate_pct": round(w_rate, 2),
+        "total_trades": num_t,
+        "winning_trades": len(wins),
+        "losing_trades": len(losses),
+        "max_dd_pct": round(max_dd_pct, 2)
+    }
+
+res_smc_10k = run_smc_fibo_sim(10000.0, 2.5, False)
+res_smc_15usd = run_smc_fibo_sim(15.0, 2.5, True)
+
+print("\n================ ENHANCED SMC + CUSTOM FIBONACCI EA v5.0 REPORT ================")
+print(f" [$10,000 Standard Account]: Final ${res_smc_10k['final_usd']:,.2f} | Net Profit +${res_smc_10k['net_profit_usd']:,.2f} (+{res_smc_10k['roi_pct']}%) | Profit Factor {res_smc_10k['pf']} | Win Rate {res_smc_10k['win_rate_pct']}% ({res_smc_10k['winning_trades']} Wins / {res_smc_10k['losing_trades']} Losses / {res_smc_10k['total_trades']} Trades) | Max DD {res_smc_10k['max_dd_pct']}%")
+print(f" [$15.00 USD Cent Account]: Final ${res_smc_15usd['final_usd']:,.2f} USD | Net Profit +${res_smc_15usd['net_profit_usd']:,.2f} USD (+{res_smc_15usd['roi_pct']}%) | Max DD {res_smc_15usd['max_dd_pct']}%")
+print("=================================================================================\n")
+
+with open(r"D:\Trade_Gus\Results_Data\smc_fibo_results.json", "w") as f:
+    json.dump({"10k": res_smc_10k, "15usd": res_smc_15usd}, f, indent=4)

@@ -1,0 +1,28 @@
+{
+    "10k": {
+        "version": "SMC + Custom Fibo EA v5.0",
+        "initial_usd": 10000.0,
+        "final_usd": 10241.31,
+        "net_profit_usd": 241.31,
+        "roi_pct": 2.41,
+        "pf": 1.23,
+        "win_rate_pct": 33.33,
+        "total_trades": 3,
+        "winning_trades": 1,
+        "losing_trades": 2,
+        "max_dd_pct": 4.97
+    },
+    "15usd": {
+        "version": "SMC + Custom Fibo EA v5.0",
+        "initial_usd": 15.0,
+        "final_usd": 15.35,
+        "net_profit_usd": 0.35,
+        "roi_pct": 2.35,
+        "pf": 1.22,
+        "win_rate_pct": 33.33,
+        "total_trades": 3,
+        "winning_trades": 1,
+        "losing_trades": 2,
+        "max_dd_pct": 4.93
+    }
+}
