@@ -1,0 +1,26 @@
+[
+  {
+    "EA": "XAUUSD_MultiTF_Scalping_EA_v2.ex5",
+    "Deposit": 750.0,
+    "NetProfit": 0.0,
+    "FinalBalance": 750.0,
+    "GrossProfit": "0.00",
+    "GrossLoss": "0.00",
+    "Trades": "0",
+    "ProfitFactor": "0.00",
+    "MaxDrawdown": "0.00%",
+    "WinRate": "0.0%"
+  },
+  {
+    "EA": "XAUUSD_MultiTF_Scalping_EA_v3.ex5",
+    "Deposit": 750.0,
+    "NetProfit": 0.0,
+    "FinalBalance": 750.0,
+    "GrossProfit": "0.00",
+    "GrossLoss": "0.00",
+    "Trades": "0",
+    "ProfitFactor": "0.00",
+    "MaxDrawdown": "0.00%",
+    "WinRate": "0.0%"
+  }
+]
