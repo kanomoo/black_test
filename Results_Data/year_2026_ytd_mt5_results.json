@@ -1,0 +1,50 @@
+[
+  {
+    "EA": "XAUUSD_Apex_Master_v12.ex5",
+    "NetProfit": "0.00",
+    "TotalTrades": "0",
+    "ProfitFactor": "0.00",
+    "WinRate": "0.0%",
+    "MaxDrawdown": "0.0%"
+  },
+  {
+    "EA": "XAUUSD_Apex_Champion_v11.ex5",
+    "NetProfit": "0.00",
+    "TotalTrades": "0",
+    "ProfitFactor": "0.00",
+    "WinRate": "0.0%",
+    "MaxDrawdown": "0.0%"
+  },
+  {
+    "EA": "XAUUSD_Apex_Grandmaster_v10.ex5",
+    "NetProfit": "0.00",
+    "TotalTrades": "0",
+    "ProfitFactor": "0.00",
+    "WinRate": "0.0%",
+    "MaxDrawdown": "0.0%"
+  },
+  {
+    "EA": "XAUUSD_Apex_MaxProfit_EA_v7.ex5",
+    "NetProfit": "0.00",
+    "TotalTrades": "0",
+    "ProfitFactor": "0.00",
+    "WinRate": "0.0%",
+    "MaxDrawdown": "0.0%"
+  },
+  {
+    "EA": "XAUUSD_MultiTF_Scalping_EA_v3.ex5",
+    "NetProfit": "0.00",
+    "TotalTrades": "0",
+    "ProfitFactor": "0.00",
+    "WinRate": "0.0%",
+    "MaxDrawdown": "0.0%"
+  },
+  {
+    "EA": "XAUUSD_MultiTF_Scalping_EA_v2.ex5",
+    "NetProfit": "0.00",
+    "TotalTrades": "0",
+    "ProfitFactor": "0.00",
+    "WinRate": "0.0%",
+    "MaxDrawdown": "0.0%"
+  }
+]

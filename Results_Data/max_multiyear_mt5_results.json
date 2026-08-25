@@ -1,0 +1,46 @@
+[
+  {
+    "Label": "3 Years (2023-2026)",
+    "FromDate": "2023.01.01",
+    "ToDate": "2026.08.24",
+    "ActualPeriod": "M5 (2023.01.01 - 2026.08.24)",
+    "NetProfit": "0.00",
+    "TotalTrades": "0",
+    "ProfitFactor": "0.00",
+    "WinRate": "0.0%",
+    "MaxDrawdown": "0.0%"
+  },
+  {
+    "Label": "5 Years (2021-2026)",
+    "FromDate": "2021.01.01",
+    "ToDate": "2026.08.24",
+    "ActualPeriod": "M5 (2021.01.01 - 2026.08.24)",
+    "NetProfit": "0.00",
+    "TotalTrades": "0",
+    "ProfitFactor": "0.00",
+    "WinRate": "0.0%",
+    "MaxDrawdown": "0.0%"
+  },
+  {
+    "Label": "6.5 Years (2020-2026)",
+    "FromDate": "2020.01.01",
+    "ToDate": "2026.08.24",
+    "ActualPeriod": "M5 (2020.01.01 - 2026.08.24)",
+    "NetProfit": "0.00",
+    "TotalTrades": "0",
+    "ProfitFactor": "0.00",
+    "WinRate": "0.0%",
+    "MaxDrawdown": "0.0%"
+  },
+  {
+    "Label": "8.5 Years (2018-2026)",
+    "FromDate": "2018.01.01",
+    "ToDate": "2026.08.24",
+    "ActualPeriod": "M5 (2018.01.01 - 2026.08.24)",
+    "NetProfit": "0.00",
+    "TotalTrades": "0",
+    "ProfitFactor": "0.00",
+    "WinRate": "0.0%",
+    "MaxDrawdown": "0.0%"
+  }
+]
